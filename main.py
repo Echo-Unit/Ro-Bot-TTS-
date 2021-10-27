@@ -13,6 +13,7 @@ bot = commands.Bot(command_prefix=[''])
 
 client = discord.Client()
 
+##auto send message##
 
 @bot.command(alias=['tts','TTS'])
 async def tts (ctx,*, arg):
@@ -30,6 +31,8 @@ async def tts (ctx,*, arg):
         voice = await channel.connect()
   source = FFmpegPCMAudio('MSG.mp3')
   player = voice.play(source)
+
+##Repeat Message##
 
 @bot.command(alias=['tts','tts Repeat','tts repeat','tts rep'])
 async def botspeak(ctx):

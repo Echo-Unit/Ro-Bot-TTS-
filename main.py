@@ -9,14 +9,14 @@ from discord.ext.commands import Bot
 from discord import FFmpegPCMAudio
 from discord.utils import get
 
-bot = commands.Bot(command_prefix=[''])
+bot = commands.Bot(command_prefix=['T','t'])
 
 client = discord.Client()
 
 ##auto send message##
 
-@bot.command(alias=['tts','TTS'])
-async def tts (ctx,*, arg):
+@bot.command(alias=['ts','TS'])
+async def Ts (ctx,*, arg):
   channel = ctx.message.author.voice.channel
   userMessage = arg
   tts = gTTS(userMessage)
@@ -34,8 +34,8 @@ async def tts (ctx,*, arg):
 
 ##Repeat Message##
 
-@bot.command(alias=['tts','tts Repeat','tts repeat','tts rep'])
-async def botspeak(ctx):
+@bot.command(alias=['ts','ts Repeat','ts repeat','ts rep'])
+async def tsbotspeak(ctx):
     channel = ctx.message.author.voice.channel
     if not channel:
         await ctx.send("You are not connected to a voice channel")

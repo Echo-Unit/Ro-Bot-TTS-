@@ -15,8 +15,8 @@ client = discord.Client()
 
 ##auto send message##
 
-@bot.command(alias=['ts','TS'])
-async def Ts (ctx,*, arg):
+@bot.command(alias=['Ts','TS'])
+async def ts (ctx,*, arg):
   channel = ctx.message.author.voice.channel
   userMessage = arg
   tts = gTTS(userMessage)
@@ -32,22 +32,13 @@ async def Ts (ctx,*, arg):
   source = FFmpegPCMAudio('MSG.mp3')
   player = voice.play(source)
 
-##Repeat Message##
+#Disconnect
 
-@bot.command(alias=['ts','ts Repeat','ts repeat','ts rep'])
-async def tsbotspeak(ctx):
-    channel = ctx.message.author.voice.channel
-    if not channel:
-        await ctx.send("You are not connected to a voice channel")
-        return
-    voice = get(bot.voice_clients, guild=ctx.guild)
-    if voice and voice.is_connected():
-        await voice.move_to(channel)
-    else:
-        voice = await channel.connect()
-    source = FFmpegPCMAudio('MSG.mp3')
-    player = voice.play(source)
-
+@bot.command(alias=["tsstop","TSstop"])
+async def tsStop (ctx):
+  voice = get(bot.voice_clients, guild=ctx.guild)
+  await voice.disconnect()
+  await ctx.send("Channel Left")
 
 keep_alive()
 bot.run(os.getenv("Token"))

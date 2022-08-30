@@ -9,32 +9,35 @@ from discord.ext.commands import Bot
 from discord import FFmpegPCMAudio
 from discord.utils import get
 
-bot = commands.Bot(command_prefix=['T','t'])
+bot = commands.Bot(command_prefix=['T','t',''])
 
 client = discord.Client()
 
 ##auto send message##
+#if voice.play == playing and message.content != MessageFinal
+#  await tts.save('MSGbackfill.mp3')
 
-@bot.command(alias=['Ts','TS'])
-async def ts (ctx,*, arg):
-  channel = ctx.message.author.voice.channel
-  userMessage = arg
-  userName = ctx.message.author.display_name
-  said = ("said")
-  MessageFinal = userName + said + userMessage
-  tts = gTTS(MessageFinal)
-  tts.save('MSG.mp3')
-  if not channel:
-      await ctx.send("You are not connected to a voice channel")
+@bot.event
+async def on_message(message):
+  if message.channel.id == 919700301466959913:
+    channel = message.author.voice.channel
+    userMessage = message.content
+    print(userMessage)
+    userName = message.author.display_name
+    said = ("said")
+    MessageFinal = userName + said + str(userMessage)
+    tts = gTTS(MessageFinal)
+    tts.save('MSG.mp3', lang='en', tld='com.au')
+    if not channel:
+      await message.send("You are not connected to a voice channel")
       return
-  voice = get(bot.voice_clients, guild=ctx.guild)
-  if voice and voice.is_connected():
+    voice = get(bot.voice_clients, guild=message.guild)
+    if voice and voice.is_connected():
         await voice.move_to(channel)
-  else:
+    else:
         voice = await channel.connect()
-  source = FFmpegPCMAudio('MSG.mp3')
-  player = voice.play(source) 
-
+    source = FFmpegPCMAudio('MSG.mp3')
+    player = voice.play(source) 
 #Disconnect
 
 @bot.command(alias=["tsstop","TSstop"])

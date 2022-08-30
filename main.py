@@ -19,7 +19,10 @@ client = discord.Client()
 async def ts (ctx,*, arg):
   channel = ctx.message.author.voice.channel
   userMessage = arg
-  tts = gTTS(userMessage)
+  userName = ctx.message.author.display_name
+  said = ("said")
+  MessageFinal = userName + said + userMessage
+  tts = gTTS(MessageFinal)
   tts.save('MSG.mp3')
   if not channel:
       await ctx.send("You are not connected to a voice channel")
@@ -30,7 +33,7 @@ async def ts (ctx,*, arg):
   else:
         voice = await channel.connect()
   source = FFmpegPCMAudio('MSG.mp3')
-  player = voice.play(source)
+  player = voice.play(source) 
 
 #Disconnect
 

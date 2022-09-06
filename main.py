@@ -27,7 +27,7 @@ async def on_message(message):
     said = ("said")
     MessageFinal = userName + said + str(userMessage)
     tts = gTTS(MessageFinal)
-    tts.save('MSG.mp3', lang='en', tld='com.au')
+    tts.save('MSG.mp3')
     if not channel:
       await message.send("You are not connected to a voice channel")
       return
